@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+require 'csv'
+CSV.open('noko.csv', 'r').each do |row|
+     Keyword.create(:word => row[0])
+end
