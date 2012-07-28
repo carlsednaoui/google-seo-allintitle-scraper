@@ -22,7 +22,7 @@ puts a
 
 def run_it
 	#Keyword.first(100).each do |foo|
-	Keyword.where("allintitle IS NOT NULL").each do |foo|
+	Keyword.where("allintitle IS NULL").each do |foo|
   		base_url = "http://www.google.com/search?q=allintitle:"
   		quotes = "%22"
   		kwd = foo.word
