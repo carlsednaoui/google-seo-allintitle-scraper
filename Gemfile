@@ -7,7 +7,9 @@ gem 'heroku'
 
 # in production environments by default.
 group :assets do
-    gem 'uglifier', '>= 1.0.3'
+gem 'uglifier', '>= 1.0.3'
+gem 'sass-rails'
+gem 'railties'
 end
 
 group :development, :test do
