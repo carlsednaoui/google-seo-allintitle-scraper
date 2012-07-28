@@ -21,10 +21,12 @@ a = a.gsub(" results", "")
 puts a
 
 def run_it
-	Keyword.first(100).each do |foo|
+	#Keyword.first(100).each do |foo|
+	Keyword.where("allintitle IS NOT NULL").each do |foo|
   		base_url = "http://www.google.com/search?q=allintitle:"
   		quotes = "%22"
   		kwd = foo.word
+		puts kwd
   		kwd = kwd.gsub(" ", "%20")
   		url = base_url + quotes + kwd + quotes
   		doc = Nokogiri::HTML(open("#{url}"))
@@ -35,8 +37,7 @@ def run_it
   		a = a.gsub(",", "")
   		foo.allintitle = a.to_i
   		foo.save!
-		sleep 3.seconds
-		break
+		sleep 3+Random.rand(7).seconds
 	end
 end
 
