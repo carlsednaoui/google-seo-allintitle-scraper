@@ -1,0 +1,11 @@
+require 'nokogiri'
+require 'open-uri'
+
+
+https://www.google.com/search?q=allintitle%3A%22medical+assistant%22
+
+
+require 'csv'
+CSV.open('noko.csv', 'r').each do |row|
+   Keyword.create(:word => row[0])
+end
