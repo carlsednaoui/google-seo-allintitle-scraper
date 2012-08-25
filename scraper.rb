@@ -1,49 +1,47 @@
 require 'nokogiri'
 require 'open-uri'
 
-base_url = "http://www.google.com/search?q=allintitle:"
-quotes = "%22"
+def get_allintitle
+  base_url = "http://www.google.com/search?q=allintitle:"
+  quotes = "%22"
 
-# Get Keyword.word
-kwd = Keyword.first.word
-puts kwd
+  Keyword.where("allintitle IS NULL").each do |k|
+    puts "********************"
+    keyword = k.word
+    puts "currently scraping: " + keyword
+    
+    # Replace spaces in keyword with proper URL encoding format
+    keyword = keyword.gsub(" ", "%20")
 
-# Replace spaces in Keyword.word proper url encoding format
-kwd = kwd.gsub(" ", "%20")
+    # Build the url to use for Nokogiri
+    url = base_url + quotes + keyword + quotes
+    doc = Nokogiri::HTML(open("#{url}"))
 
-# Build the URL to be passed to Nokogiri
-url = base_url + quotes + kwd + quotes
+    # Strip the google results
+    result = doc.css('#resultStats').text
+    result = result.gsub("About ","")
+    result = result.gsub(" results", "")
+    result = result.gsub(",", "")
 
-doc = Nokogiri::HTML(open("#{url}"))
+    puts "all in title: " + result.to_s
+    
+    # Set and save the result
+    k.allintitle = result.to_i
+    k.save!
+    puts "********************"
 
-a = doc.css('#resultStats').text
-#a = a.gsub("Advanced searchAbout ","")
-#a = a.gsub(" results", "")
-puts a
-
-def run_it
-	#Keyword.first(100).each do |foo|
-	Keyword.where("allintitle IS NULL").each do |foo|
-	  puts "**************************************************"
-  		base_url = "http://www.google.com/search?q=allintitle:"
-  		quotes = "%22"
-  		kwd = foo.word
-		puts kwd
-  		kwd = kwd.gsub(" ", "%20")
-  		url = base_url + quotes + kwd + quotes
-  		doc = Nokogiri::HTML(open("#{url}"))
-  		#a = doc.css('div').first(9).last.text
-  		a = doc.css('#resultStats').text
-  		#a = a.gsub("Advanced searchAbout ","")
-  		a = a.gsub("About ","")
-  		a = a.gsub(" results", "")
-  		a = a.gsub(",", "")
-		puts a
-  		foo.allintitle = a.to_i
-  		foo.save!
-		sleep 3+Random.rand(7).seconds
-	  puts "**************************************************"
-	end
+    # Sleep for couple seconds to avoid getting kicked out by Google
+    sleep_time = 3+Random.rand(7).seconds
+    puts "Sleeping for " + sleep_time.to_s + " seconds"
+    sleep sleep_time
+  end
 end
 
-run_it
+get_allintitle
+
+
+# =============
+# Notes: Earlier this had to be used to find allintitle instead of doc.css('#resultStats')
+# result = doc.css('div').first(9).last.text
+# result = result.gsub("Advanced searchAbout ","")
+# =============

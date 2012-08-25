@@ -9,4 +9,5 @@ This is a super simple app that lets you use Nokogiri to extract the "all in tit
 4. Run $rails runner import_keywords.rb
 5. Run $rails runner scraper.rb
 
-
+## Notes:
+Google typically limit 100 queries per day per IP address
