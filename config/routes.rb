@@ -1,5 +1,6 @@
 Noko::Application.routes.draw do
   resources :keywords
+  root :to => 'keywords#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
