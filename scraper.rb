@@ -1,6 +1,9 @@
 require 'nokogiri'
 require 'open-uri'
 
+puts "currently running " + $0
+puts "there are no keywords with empty allintitle" if Keyword.where("allintitle IS NULL").count == 0
+
 def get_allintitle
   base_url = "http://www.google.com/search?q=allintitle:"
   quotes = "%22"
@@ -31,14 +34,13 @@ def get_allintitle
     puts "********************"
 
     # Sleep for couple seconds to avoid getting kicked out by Google
-    sleep_time = 3+Random.rand(7).seconds
+    sleep_time = 13+Random.rand(17).seconds
     puts "Sleeping for " + sleep_time.to_s + " seconds"
     sleep sleep_time
   end
 end
 
 get_allintitle
-
 
 # =============
 # Notes: Earlier this had to be used to find allintitle instead of doc.css('#resultStats')
