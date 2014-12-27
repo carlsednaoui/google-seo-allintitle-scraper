@@ -4,10 +4,23 @@
   <title>Noko</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= csrf_meta_tags %>
+  <%= javascript_include_tag :application %>
 </head>
 <body>
 
+<h2>Google SEO Allintitle Scraper</h2>
+
 <%= yield %>
+
+ | <%= link_to 'Add multiple keywords', new_keyword_set_path %> | <%= link_to 'Get CSV output', excel_output_keywords_path %>
+
+<h4>Instructions:</h4>
+
+<p>Add keywords either individually or via the multiple keywords option. Once you are done, run the following:</p>
+<pre>rake scraper:get_all</pre>
+<p>The rake task will run and in between each keyword it will pause for a random number of seconds. Please note that if you do this too much Google may temp-ban you!</p>
+
+<!-- <%= debug(params) if Rails.env.development? %> -->
 
 </body>
 </html>

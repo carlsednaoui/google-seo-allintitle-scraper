@@ -1,4 +1,4 @@
-<h1>Listing keywords</h1>
+<h3>Listing keywords</h3>
 
 <table>
   <tr>
@@ -15,7 +15,7 @@
     <td><%= keyword.allintitle %></td>
     <td><%= link_to 'Show', keyword %></td>
     <td><%= link_to 'Edit', edit_keyword_path(keyword) %></td>
-    <td><%= link_to 'Destroy', keyword, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Destroy', keyword, method: :delete, data: {confirm: 'Are you sure?'} %></td>
   </tr>
 <% end %>
 </table>

@@ -1,5 +1,11 @@
 Noko::Application.routes.draw do
-  resources :keywords
+  resources :keywords do
+    collection do
+      get :excel_output
+    end
+  end
+  
+  resources :keyword_sets
   root :to => 'keywords#index'
 
   # The priority is based upon order of creation:
