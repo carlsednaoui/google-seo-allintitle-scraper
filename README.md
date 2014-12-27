@@ -9,11 +9,11 @@ For the SEO lovers, this is a simple scraper that lets you use Nokogiri to extra
 ## Getting your scraper ready:
 
 1. Download a local copy of this app
-2. Run $ bundle
-3. Run $ rake db:migrate
-4. Boot up the app either 'rails server' and navigate to http://localhost:3000/
+2. Run '$ bundle'
+3. Run '$ rake db:migrate'
+4. Boot up the app either '$ rails server' and navigate to http://localhost:3000/
 5. Make individual new keywords or add them via the 'add multiple keywords' option (line separated)
-6. Run 'rake scraper:get_all'
+6. Run '$ rake scraper:get_all'
 7. Profit!
 
 You can view the results in your browser and also can click the excel output method to get all the results in an easily pastable format.
