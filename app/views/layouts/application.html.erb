@@ -15,13 +15,7 @@
 <% end %>
 <%= yield %>
 
- | <%= link_to 'Add multiple keywords', new_keyword_set_path %> | <%= link_to 'Get CSV output', excel_output_keywords_path %>
-
-<h4>Instructions:</h4>
-
-<p>Add keywords either individually or via the multiple keywords option. Once you are done, run the following:</p>
-<pre>rake scraper:get_all</pre>
-<p>The rake task will run and in between each keyword it will pause for a random number of seconds. Please note that if you do this too much Google may temp-ban you!</p>
+ | <%= link_to 'Add multiple keywords', new_keyword_set_path %> | <%= link_to 'Get CSV output', excel_output_keywords_path %> | <%= link_to 'Instructions', instructions_path %>
 
 <!-- <%= debug(params) if Rails.env.development? %> -->
 

@@ -9,6 +9,9 @@ Noko::Application.routes.draw do
   end
   
   resources :keyword_sets
+  
+  get 'instructions', controller: :pages, to: :instructions
+  
   root :to => 'keywords#index'
 
   # The priority is based upon order of creation:
