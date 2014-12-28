@@ -9,6 +9,13 @@ class KeywordsController < ApplicationController
       format.json { render json: @keywords }
     end
   end
+  
+  def excel_output
+    @keywords = Keyword.where.not(allintitle: nil)
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
 
   # GET /keywords/1
   # GET /keywords/1.json
@@ -80,4 +87,25 @@ class KeywordsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # POST /keywords/1/remove_allintitle
+  # POST /keywords/1/remove_allintitle.json
+  def reset_allintitle
+    @keyword = Keyword.find(params[:id])
+    
+    respond_to do |format|
+      if @keyword.update_attributes(allintitle: nil)
+        format.html { redirect_to '/', notice: 'Allintitle number for keyword successfully removed.'}
+        format.json { head :no_content }
+      else
+        format.html { render action: "show" }
+        format.json { render json: @keyword.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  private
+    def keyword_params
+      params.require(:word).permit(:allintitle, :word)
+    end
 end

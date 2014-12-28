@@ -4,10 +4,20 @@
   <title>Noko</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= csrf_meta_tags %>
+  <%= javascript_include_tag :application %>
 </head>
 <body>
 
+<h2>Google SEO Allintitle Scraper</h2>
+
+<% if flash[:notice] %>
+  <p><em><%= flash[:notice] %></em></p>
+<% end %>
 <%= yield %>
+
+ | <%= link_to 'Add multiple keywords', new_keyword_set_path %> | <%= link_to 'Get CSV output', excel_output_keywords_path %> | <%= link_to 'Instructions', instructions_path %>
+
+<!-- <%= debug(params) if Rails.env.development? %> -->
 
 </body>
 </html>
