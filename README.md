@@ -1,7 +1,5 @@
 # Google allintitle scraper
 
-## Updated to make it more user-friendly (this is debatable :-P )
-
 If you're into SEO you probably know how valuable the "allintitle" data from Google is. If you have no idea of what I'm talking about, nevermind... none of this will really make sense.
 
 For the SEO lovers, this is a simple scraper that lets you use Nokogiri to extract the "all in title" results from Google. This scraper is built using Ruby on Rails.
