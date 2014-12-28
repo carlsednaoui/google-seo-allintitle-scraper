@@ -10,6 +10,9 @@
 
 <h2>Google SEO Allintitle Scraper</h2>
 
+<% if flash[:notice] %>
+  <p><em><%= flash[:notice] %></em></p>
+<% end %>
 <%= yield %>
 
  | <%= link_to 'Add multiple keywords', new_keyword_set_path %> | <%= link_to 'Get CSV output', excel_output_keywords_path %>

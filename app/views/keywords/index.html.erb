@@ -12,10 +12,11 @@
 <% @keywords.each do |keyword| %>
   <tr>
     <td><%= keyword.word %></td>
-    <td><%= keyword.allintitle %></td>
+    <td class="<%= color_for_allintitle(keyword.allintitle) %>"><%= keyword.allintitle %></td>
     <td><%= link_to 'Show', keyword %></td>
     <td><%= link_to 'Edit', edit_keyword_path(keyword) %></td>
     <td><%= link_to 'Destroy', keyword, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+    <td><%= link_to 'Reset Allintitle', reset_allintitle_keyword_path(keyword), method: :post, data: {confirm: 'Are you sure?'} %></td>
   </tr>
 <% end %>
 </table>

@@ -88,6 +88,22 @@ class KeywordsController < ApplicationController
     end
   end
   
+  # POST /keywords/1/remove_allintitle
+  # POST /keywords/1/remove_allintitle.json
+  def reset_allintitle
+    @keyword = Keyword.find(params[:id])
+    
+    respond_to do |format|
+      if @keyword.update_attributes(allintitle: nil)
+        format.html { redirect_to '/', notice: 'Allintitle number for keyword successfully removed.'}
+        format.json { head :no_content }
+      else
+        format.html { render action: "show" }
+        format.json { render json: @keyword.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   private
     def keyword_params
       params.require(:word).permit(:allintitle, :word)
