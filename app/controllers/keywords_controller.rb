@@ -94,11 +94,25 @@ class KeywordsController < ApplicationController
     @keyword = Keyword.find(params[:id])
     
     respond_to do |format|
-      if @keyword.update_attributes(allintitle: nil)
+      if @keyword.reset_allintitle
         format.html { redirect_to '/', notice: 'Allintitle number for keyword successfully removed.'}
         format.json { head :no_content }
       else
         format.html { render action: "show" }
+        format.json { render json: @keyword.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  def get_allintitle
+    @keyword = Keyword.find(params[:id])
+    
+    respond_to do |format|
+      if @keyword.get_allintitle
+        format.html { redirect_to @keyword, notice: 'Allintitle updated' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'show' }
         format.json { render json: @keyword.errors, status: :unprocessable_entity }
       end
     end

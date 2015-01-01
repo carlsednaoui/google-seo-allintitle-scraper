@@ -2,10 +2,12 @@ Noko::Application.routes.draw do
   resources :keywords do
     member do
       post :reset_allintitle
+      post :get_allintitle
     end
     collection do
       get :excel_output
     end
+    resources :title_results
   end
   
   resources :keyword_sets

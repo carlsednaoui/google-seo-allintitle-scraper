@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  keyword_id: 1
+  google_count: 1
+
+two:
+  keyword_id: 1
+  google_count: 1

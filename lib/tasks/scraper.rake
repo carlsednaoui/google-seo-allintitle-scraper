@@ -12,4 +12,19 @@ namespace :scraper do
       Keyword.create(:word => row[0]) unless Keyword.where(word: row[0]).count > 0
     end
   end
+  
+  desc "Update existing keywords to use the TitleResult model"
+  task :update_keywords => :environment do
+    
+    Keyword.all.each do |k|
+      begin
+        k.title_results.create({google_count: k.allintitle, created_at: k.updated_at})
+        k.update_attributes({allintitle: nil})
+      rescue Exception => e
+        puts e.message
+        puts e.backtrace
+      end
+    end
+    
+  end
 end
