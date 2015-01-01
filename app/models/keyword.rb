@@ -34,6 +34,10 @@ class Keyword < ActiveRecord::Base
     end
   end
   
+  def allintitle
+    title_results.order(created_at: :desc).first
+  end
+  
   def get_allintitle
     require 'nokogiri'
     require 'open-uri'

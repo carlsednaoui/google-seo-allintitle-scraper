@@ -1,7 +1,7 @@
 module KeywordsHelper
   def csv_from_keywords(keywords)
-    o = "\"Keyword\",\"All In Title\"\r\n"
-    keywords.each {|k| o << "\"#{k.word}\",\"#{k.allintitle}\"#{"\r\n" unless k == keywords.last}"}
+    o = "\"Keyword\",\"All In Title\",\"Scraped Date\"\r\n"
+    keywords.each {|k| o << "\"#{k.word}\",\"#{k.allintitle.google_count}\",\"#{k.allintitle.created_at}\"#{"\r\n" unless k == keywords.last}"}
     o
   end
   
