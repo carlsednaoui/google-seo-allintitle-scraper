@@ -13,9 +13,9 @@
 <% @keywords.each do |keyword| %>
   <tr>
     <td><%= keyword.word %></td>
-    <td class="<%= color_for_allintitle(keyword.previous_allintitle) %>"><%= keyword.previous_allintitle %></td>
-    <td class="<%= color_for_allintitle(keyword.current_allintitle) %>"><%= keyword.current_allintitle %></td>
-    <td class="<%= color_for_change(keyword.previous_allintitle,keyword.current_allintitle) %>"><%= change(keyword.previous_allintitle,keyword.current_allintitle) %></td>
+    <td class="<%= color_for_allintitle(keyword.previous_allintitle.google_count) %>"><%= keyword.previous_allintitle.google_count %></td>
+    <td class="<%= color_for_allintitle(keyword.current_allintitle.google_count) %>"><%= keyword.current_allintitle.google_count %></td>
+    <td class="<%= color_for_change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count) %>"><%= change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count) %></td>
     <td><%= link_to 'Show', keyword %></td>
     <td><%= link_to 'Destroy', keyword, method: :delete, data: {confirm: 'Are you sure you want to destroy this? It will remove the Keyword and the entire Allintitle history associated with it!'} %></td>
     <td><%= link_to 'Reset Allintitle', reset_allintitle_keyword_path(keyword), method: :post, data: {confirm: 'Are you sure? This will annihilate the Allintitle history for this Keyword!'} %></td>

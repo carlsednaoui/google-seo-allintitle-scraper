@@ -1,7 +1,7 @@
 module KeywordsHelper
   def csv_from_keywords(keywords)
     o = "\"Keyword\",\"All In Title\",\"Scraped Date\"\r\n"
-    keywords.each {|k| o << "\"#{k.word}\",\"#{k.allintitle.google_count}\",\"#{k.allintitle.created_at}\"#{"\r\n" unless k == keywords.last}"}
+    keywords.each {|k| o << "\"#{k.word}\",\"#{k.allintitle.google_count}\",\"#{k.allintitle.created_at.strftime('%Y-%m-%d')}\"#{"\r\n" unless k == keywords.last}"}
     o
   end
   
@@ -31,7 +31,7 @@ module KeywordsHelper
     
     results.each do |current|
       out << "<tr>"
-      out << "<td>#{current.created_at}</td>"
+      out << "<td>#{current.created_at.strftime('%Y-%m-%d')}</td>"
       out << "<td>#{current.google_count}</td>"
       out << (previous.nil? ? "<td>&nbsp;</td>" : "<td class='#{color_for_change(previous.google_count,current.google_count)}'>#{change(previous.google_count,current.google_count)}</td>")
       out << "</tr>"

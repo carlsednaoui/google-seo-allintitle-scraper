@@ -38,7 +38,13 @@ class Keyword < ActiveRecord::Base
     title_results.order(created_at: :desc).first
   end
   
-  def get_allintitle
+  def get_allintitle(override=false)
+    
+    if (DateTime.now - 1.day < current_allintitle.created_at)
+      puts "Skipping: Less than one day since last scrape!"
+      return false
+    end unless override
+    
     require 'nokogiri'
     require 'open-uri'
     # Replace spaces in word with proper URL encoding format
@@ -63,23 +69,26 @@ class Keyword < ActiveRecord::Base
     # Replaced with a new model for time-based analysis
     begin
       self.title_results.create({google_count: result.to_i})
+      return true
     rescue Exception => e
       puts e.message
       puts e.backtrace
+      puts 'Mountain View, we have a problem...'
+      return false
     end
     
   end
   
   def current_allintitle
-    title_results.order(created_at: :desc).first.google_count
+    title_results.order(created_at: :desc).first
   end
   
   def previous_allintitle
-    title_results.order(created_at: :desc)[1].google_count
+    title_results.order(created_at: :desc)[1].nil? ? first_allintitle : title_results.order(created_at: :desc)[1]
   end
   
   def first_allintitle
-    title_results.order(created_at: :asc).first.google_count
+    title_results.order(created_at: :asc).first
   end
   
   def reset_allintitle
