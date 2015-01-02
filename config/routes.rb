@@ -1,4 +1,5 @@
 Noko::Application.routes.draw do
+<<<<<<< Updated upstream
   resources :keywords do
     member do
       post :reset_allintitle
@@ -12,6 +13,10 @@ Noko::Application.routes.draw do
   
   get 'instructions', controller: :pages, to: :instructions
   
+=======
+  resources :keywords
+  resources :keyword_sets
+>>>>>>> Stashed changes
   root :to => 'keywords#index'
 
   # The priority is based upon order of creation:

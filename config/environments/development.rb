@@ -36,5 +36,8 @@ Noko::Application.configure do
   config.assets.debug = true
   
   config.assets.compile = true
+<<<<<<< Updated upstream
   config.eager_load = false
+=======
+>>>>>>> Stashed changes
 end
