@@ -10,7 +10,7 @@ You simply add keywords (individually or in bulk) and then run the scraper rake 
 
 ## For users of the previous version:
 
-Run '$ rake db:migrate' and then '$ rake scraper:update_keywords' to take existing keywords and create associate TitleResult objects in the DB
+Run '$ rake db:migrate' and then '$ rake scraper:update_keywords' to take existing keywords and create associate TitleResult objects in the DB. _Please back up your database before running this if you have info you don't want to lose!_
 
 ## Updates
 
