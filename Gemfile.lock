@@ -58,6 +58,8 @@ GEM
     heroku-api (0.3.22)
       excon (~> 0.38)
       multi_json (~> 1.8)
+    highcharts-rails (4.0.4.1)
+      railties (>= 3.1)
     hike (1.2.3)
     i18n (0.7.0)
     jquery-rails (4.0.2)
@@ -146,6 +148,7 @@ PLATFORMS
 DEPENDENCIES
   haml
   heroku
+  highcharts-rails (~> 4.0.4)
   jquery-rails (~> 4.0.2)
   nokogiri
   pg

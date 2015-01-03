@@ -50,3 +50,8 @@ body {
   color: #0f0;
   /*background: rgba(0,255,0,0.5);*/
 }
+
+.white-background
+{
+  background: #fff;
+}
