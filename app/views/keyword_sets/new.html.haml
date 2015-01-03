@@ -1,0 +1,18 @@
+= form_for(:keyword_set, url: keyword_sets_path, html: {class: 'form-horizontal'}) do |f|
+  - if @keyword_set.errors.any?
+    .form-group
+      .alert.alert-warning{role: :alert}
+        %h2 #{pluralize(@keyword_set.errors.count, "error")} prohibited this keyword_set from being saved:
+        %ul
+        - @keyword.errors.full_messages.each do |msg|
+          %li= msg
+  .form-group
+    = f.label :keywords, class: 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_area :keywords, rows: 20, class: 'form-control'
+      %small (Line separated)
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Submit', class: 'btn btn-success'
+
+= link_to 'Back', keywords_path, class: 'btn btn-default', role: :button

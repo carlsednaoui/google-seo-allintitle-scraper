@@ -1,0 +1,30 @@
+!!!
+%html
+  %head
+    %title #{@title} | Google SEO Allintitle Scraper
+    = stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css', media: 'all'
+    = stylesheet_link_tag    "application", :media => "all"
+    = csrf_meta_tags
+    = javascript_include_tag :application
+    = javascript_include_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js'
+  %body
+    %nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          = link_to 'Google SEO Allintitle Scraper', '/', class: 'navbar-brand'
+        #navbar
+          %ul.nav.navbar-nav
+            %li= link_to 'Home', '/'
+            %li= link_to 'Add multiple keywords', new_keyword_set_path
+            %li= link_to 'Get CSV output', excel_output_keywords_path
+            %li= link_to 'Instructions', instructions_path
+    .container
+      .page-header
+        %h2= @title
+        - if flash[:notice]
+          .alert.alert-warning{role: :alert}= flash[:notice]
+      = yield
+    %footer.footer
+      .container
+        %p.text-muted
+          Created by #{link_to 'carlsednaoui', 'https://github.com/carlsednaoui'} and updated heavily by #{link_to 'thekeith','https://github.com/thekeith'} | #{link_to 'View source on Github', 'https://github.com/carlsednaoui/google-seo-allintitle-scraper'}
