@@ -4,7 +4,7 @@
     %th Previous Count
     %th Current Count
     %th Change
-    %th Days Since Scrape
+    %th Ready to Scrape?
     %th
   - @keywords.each do |keyword|
     %tr
@@ -13,7 +13,7 @@
         %td{class: color_for_allintitle(keyword.previous_allintitle.google_count)}= keyword.previous_allintitle.google_count
         %td{class: color_for_allintitle(keyword.current_allintitle.google_count)}= keyword.current_allintitle.google_count
         %td{class: color_for_change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count)}= change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count)
-        %td= keyword.days_since_last_scrape
+        %td{class: keyword.ready_to_scrape? ? 'green' : nil}= keyword.ready_to_scrape? ? 'Yes' : 'No'
       - else
         %td{colspan: 4} (no data)
       %td

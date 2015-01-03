@@ -23,14 +23,15 @@ class Keyword < ActiveRecord::Base
     self.all.each do |k|
       puts "********************"
       puts "currently scraping: " + k.word
-      k.get_allintitle
+      scraped = k.get_allintitle
       
       puts "********************"
-      
-      # Sleep for couple seconds to avoid getting kicked out by Google
-      sleep_time = 13+Random.rand(17).seconds
-      puts "Sleeping for " + sleep_time.to_s + " seconds"
-      sleep sleep_time
+      if scraped
+        # Sleep for couple seconds to avoid getting kicked out by Google
+        sleep_time = 13+Random.rand(17).seconds
+        puts "Sleeping for " + sleep_time.to_s + " seconds"
+        sleep sleep_time
+      end
     end
   end
   
@@ -40,7 +41,7 @@ class Keyword < ActiveRecord::Base
   
   def get_allintitle(override=false)
     
-    if (DateTime.now - 1.day < current_allintitle.created_at)
+    if title_results.count > 0 && (DateTime.now - 1.day < current_allintitle.created_at)
       puts "Skipping: Less than one day since last scrape!"
       return false
     end unless override
@@ -97,6 +98,10 @@ class Keyword < ActiveRecord::Base
   
   def days_since_last_scrape
     title_results.count > 0 ? (DateTime.now.to_date - current_allintitle.created_at.to_date).to_i : 0
+  end
+  
+  def ready_to_scrape?
+    title_results.count > 0 && (DateTime.now.to_date - current_allintitle.created_at.to_date).to_i >= 1 ? true : false
   end
   
 end
