@@ -88,7 +88,6 @@ class KeywordsController < ApplicationController
     end
   end
   
-<<<<<<< Updated upstream
   # POST /keywords/1/remove_allintitle
   # POST /keywords/1/remove_allintitle.json
   def reset_allintitle
@@ -105,8 +104,6 @@ class KeywordsController < ApplicationController
     end
   end
   
-=======
->>>>>>> Stashed changes
   private
     def keyword_params
       params.require(:word).permit(:allintitle, :word)

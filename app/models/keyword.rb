@@ -14,15 +14,8 @@ class Keyword < ActiveRecord::Base
     
     base_url = "http://www.google.com/search?q=allintitle:"
     quotes = "%22"
-<<<<<<< Updated upstream
     
-    keywords = Keyword.where("allintitle IS NULL")
-    
-    keywords.each do |k|
-=======
-
     Keyword.where("allintitle IS NULL").each do |k|
->>>>>>> Stashed changes
       puts "********************"
       keyword = k.word
       puts "currently scraping: " + keyword
@@ -46,11 +39,7 @@ class Keyword < ActiveRecord::Base
       k.allintitle = result.to_i
       k.save!
       puts "********************"
-<<<<<<< Updated upstream
       
-=======
-
->>>>>>> Stashed changes
       # Sleep for couple seconds to avoid getting kicked out by Google
       sleep_time = 13+Random.rand(17).seconds
       puts "Sleeping for " + sleep_time.to_s + " seconds"
