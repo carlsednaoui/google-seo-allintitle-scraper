@@ -31,7 +31,7 @@ module KeywordsHelper
     
     results.each do |current|
       out << "<tr>"
-      out << "<td>#{current.created_at.strftime('%Y-%m-%d')}</td>"
+      out << "<td>#{current.id} #{current.created_at.strftime('%Y-%m-%d')}</td>"
       out << "<td>#{current.google_count}</td>"
       out << (previous.nil? ? "<td>&nbsp;</td>" : "<td class='#{color_for_change(previous.google_count,current.google_count)}'>#{change(previous.google_count,current.google_count)}</td>")
       out << "</tr>"

@@ -22,7 +22,7 @@
         }
       },
       series: [{
-        name: '#{@keyword.word}',
+        name: "#{@keyword.word.gsub("'","\'")}",
         data: #{@keyword.allintitle_list.to_s.gsub('"','')}
       }]
     });

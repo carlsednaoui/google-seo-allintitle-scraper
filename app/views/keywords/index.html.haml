@@ -1,30 +1,34 @@
-%table.table.table-striped
-  %tr
-    %th Word
-    %th Previous Count
-    %th Current Count
-    %th Change
-    %th Ready to Scrape?
-    %th
-  - @keywords.each do |keyword|
+- if @keywords.nil?
+  %h4 Hey there
+  %p Welcome! Check out #{link_to 'the instructions', instructions_path} to get started!
+- else
+  %table.table.table-striped
     %tr
-      %td= link_to keyword.word, keyword
-      - if keyword.title_results.count > 0
-        %td{class: color_for_allintitle(keyword.previous_allintitle.google_count)}= keyword.previous_allintitle.google_count
-        %td{class: color_for_allintitle(keyword.current_allintitle.google_count)}= keyword.current_allintitle.google_count
-        %td{class: color_for_change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count)}= change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count)
-        %td{class: keyword.ready_to_scrape? ? 'green' : nil}= keyword.ready_to_scrape? ? 'Yes' : 'No'
-      - else
-        %td{colspan: 4} (no data)
-      %td
-        = link_to 'Show', keyword, class: 'btn btn-sm btn-default', role: :button
-        = link_to 'Scrape', get_allintitle_keyword_path(keyword), class: 'btn btn-sm btn-success', method: :post, role: :button, disabled: !keyword.ready_to_scrape?
-        .btn-group
-          %button{type: :button, class: 'btn btn-sm btn-danger dropdown-toggle', :'data-toggle' => :dropdown, :'aria-expanded' => false}
-            Destroy...
-            %span.caret
-          %ul.dropdown-menu{role: :menu}
-            %li= link_to 'Allintitle History', reset_allintitle_keyword_path(keyword), method: :post, data: {confirm: 'Are you sure? This will annihilate the Allintitle history for this Keyword!'}
-            %li= link_to 'Keyword', keyword, method: :delete, data: {confirm: 'Are you sure you want to destroy this? It will remove the Keyword and the entire Allintitle history associated with it!'}
+      %th Word
+      %th Previous Count
+      %th Current Count
+      %th Change
+      %th Ready to Scrape?
+      %th
+    - @keywords.each do |keyword|
+      %tr
+        %td= link_to keyword.word, keyword
+        - if keyword.title_results.count > 0
+          %td{class: color_for_allintitle(keyword.previous_allintitle.google_count)}= keyword.previous_allintitle.google_count
+          %td{class: color_for_allintitle(keyword.current_allintitle.google_count)}= keyword.current_allintitle.google_count
+          %td{class: color_for_change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count)}= change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count)
+          %td{class: keyword.ready_to_scrape? ? 'green' : nil}= keyword.ready_to_scrape? ? 'Yes' : 'No'
+        - else
+          %td{colspan: 4} (no data)
+        %td
+          = link_to 'Show', keyword, class: 'btn btn-sm btn-default', role: :button
+          = link_to 'Scrape', get_allintitle_keyword_path(keyword), class: 'btn btn-sm btn-success', method: :post, role: :button, disabled: !keyword.ready_to_scrape?
+          .btn-group
+            %button{type: :button, class: 'btn btn-sm btn-danger dropdown-toggle', :'data-toggle' => :dropdown, :'aria-expanded' => false}
+              Destroy...
+              %span.caret
+            %ul.dropdown-menu{role: :menu}
+              %li= link_to 'Allintitle History', reset_allintitle_keyword_path(keyword), method: :post, data: {confirm: 'Are you sure? This will annihilate the Allintitle history for this Keyword!'}
+              %li= link_to 'Keyword', keyword, method: :delete, data: {confirm: 'Are you sure you want to destroy this? It will remove the Keyword and the entire Allintitle history associated with it!'}
 
 %p= link_to 'New Keyword', new_keyword_path, class: 'btn btn-success', role: :button
