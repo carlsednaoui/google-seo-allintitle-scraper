@@ -44,15 +44,10 @@ class KeywordsController < ApplicationController
     end
   end
 
-  # GET /keywords/1/edit
-  # def edit
-  #   @keyword = Keyword.find(params[:id])
-  # end
-
   # POST /keywords
   # POST /keywords.json
   def create
-    @keyword = Keyword.new(params[:keyword])
+    @keyword = Keyword.new({word: params[:keyword][:word]})
 
     respond_to do |format|
       if @keyword.save
@@ -64,22 +59,6 @@ class KeywordsController < ApplicationController
       end
     end
   end
-
-  # PUT /keywords/1
-  # PUT /keywords/1.json
-  # def update
-  #   @keyword = Keyword.find(params[:id])
-
-  #   respond_to do |format|
-  #     if @keyword.update_attributes(params[:keyword])
-  #       format.html { redirect_to @keyword, notice: 'Keyword was successfully updated.' }
-  #       format.json { head :no_content }
-  #     else
-  #       format.html { render action: "edit" }
-  #       format.json { render json: @keyword.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
 
   # DELETE /keywords/1
   # DELETE /keywords/1.json

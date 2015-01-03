@@ -96,7 +96,7 @@ class Keyword < ActiveRecord::Base
   end
   
   def days_since_last_scrape
-    (DateTime.now.to_date - current_allintitle.created_at.to_date).to_i
+    title_results.count > 0 ? (DateTime.now.to_date - current_allintitle.created_at.to_date).to_i : 0
   end
   
 end
