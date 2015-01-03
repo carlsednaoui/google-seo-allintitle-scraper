@@ -1,0 +1,10 @@
+%p
+  %strong Word:
+  #{@keyword.word}
+
+%p
+  %strong Allintitle History
+
+= title_results_table
+
+%p= link_to 'Back', keywords_path, class: 'btn btn-default', role: :button

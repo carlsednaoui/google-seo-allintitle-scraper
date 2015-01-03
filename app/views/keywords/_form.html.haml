@@ -1,0 +1,14 @@
+= form_for(@keyword, html: {class: 'form-horizontal'}) do |f|
+  - if @keyword.errors.any?
+    .form-group
+      .alert.alert-warning{role: :alert}
+        %h2 #{pluralize(@keyword.errors.count, "error")} prohibited this keyword from being saved:
+        %ul
+        - @keyword.errors.full_messages.each do |msg|
+          %li= msg
+  .form-group
+    = f.label :word, class: 'col-sm-2 control-label'
+    .col-sm-4= f.text_field :word, class: 'form-control'
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Submit', class: 'btn btn-success'
