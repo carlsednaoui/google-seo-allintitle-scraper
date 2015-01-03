@@ -37,7 +37,7 @@ class Keyword < ActiveRecord::Base
   
   def get_allintitle(override=false)
     
-    if title_results.count > 0 && (DateTime.now - 1.day < current_allintitle.created_at)
+    if !ready_to_scrape?
       puts "Skipping: Less than one day since last scrape!"
       return false
     end unless override
@@ -58,10 +58,6 @@ class Keyword < ActiveRecord::Base
     result = result.gsub(",", "")
 
     puts "all in title: " + result.to_s
-    
-    # Set and save the result
-    # k.allintitle = result.to_i
-    # k.save!
     
     # Replaced with a new model for time-based analysis
     begin
@@ -105,7 +101,7 @@ class Keyword < ActiveRecord::Base
   end
   
   def ready_to_scrape?
-    title_results.count > 0 && (DateTime.now.to_date - current_allintitle.created_at.to_date).to_i >= 1 ? true : false
+    title_results.count > 0 && (DateTime.now.to_i - current_allintitle.created_at.to_i) >= 1.day.to_i ? true : false
   end
   
 end
