@@ -1,9 +1,32 @@
-%p
-  %strong Word:
-  #{@keyword.word}
 
-%p
-  %strong Allintitle History
+#allintitle-chart.panel
+
+:javascript
+  $(function(){
+    $('#allintitle-chart').highcharts({
+      title: {
+        text: 'Allintitle History',
+        x: -20
+      },
+      xAxis: {
+        //categories: #{list_dates_between_dates(DateTime.parse(@keyword.first_allintitle.created_at.to_s), DateTime.parse(@keyword.current_allintitle.created_at.to_s)).to_s},
+        //categories: #{@keyword.title_results.all.map {|tr| tr.created_at.strftime('%Y-%m-%d')}.to_s},
+        dateTimeLabelFormats: { // don't display the dummy year
+            day: '%e. %b'
+        },
+        type: 'datetime'
+      },
+      yAxis: {
+        title: {
+        text: 'Result Count'
+        }
+      },
+      series: [{
+        name: '#{@keyword.word}',
+        data: #{@keyword.allintitle_list.to_s.gsub('"','')}
+      }]
+    });
+  });
 
 = title_results_table
 

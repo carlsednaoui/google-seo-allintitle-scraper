@@ -8,7 +8,7 @@
     %th
   - @keywords.each do |keyword|
     %tr
-      %td= keyword.word
+      %td= link_to keyword.word, keyword
       - if keyword.title_results.count > 0
         %td{class: color_for_allintitle(keyword.previous_allintitle.google_count)}= keyword.previous_allintitle.google_count
         %td{class: color_for_allintitle(keyword.current_allintitle.google_count)}= keyword.current_allintitle.google_count

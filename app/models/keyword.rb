@@ -35,10 +35,6 @@ class Keyword < ActiveRecord::Base
     end
   end
   
-  def allintitle
-    title_results.order(created_at: :desc).first
-  end
-  
   def get_allintitle(override=false)
     
     if title_results.count > 0 && (DateTime.now - 1.day < current_allintitle.created_at)
@@ -78,6 +74,14 @@ class Keyword < ActiveRecord::Base
       return false
     end
     
+  end
+  
+  def allintitle
+    title_results.order(created_at: :desc).first
+  end
+  
+  def allintitle_list
+    title_results.order(created_at: :asc).map {|tr| ["Date.UTC(#{tr.created_at.year},#{tr.created_at.month - 1},#{tr.created_at.day})",tr.google_count] }
   end
   
   def current_allintitle

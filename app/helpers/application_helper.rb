@@ -11,4 +11,9 @@ module ApplicationHelper
       'red'
     end
   end
+  
+  def list_dates_between_dates(start_date, end_date)
+    (start_date..end_date).map {|d| d.strftime('%Y-%m-%d') }
+  end
+  
 end

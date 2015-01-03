@@ -10,13 +10,14 @@ group :assets do
 	gem 'railties'
   gem 'jquery-rails', "~> 4.0.2"
   gem 'haml'
+  gem "highcharts-rails", "~> 4.0.4"
 end
 
 group :development, :test do
-        gem 'sqlite3'
+  gem 'sqlite3'
 end
 
 group :production do
-        gem 'pg'
-        gem 'thin'
+  gem 'pg'
+  gem 'thin'
 end
