@@ -1,7 +1,7 @@
 class KeywordSetsController < ApplicationController
   def new
     @keyword_set = KeywordSet.new
-
+    @title = 'New Keyword Set'
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @keyword_set }

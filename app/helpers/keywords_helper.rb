@@ -18,12 +18,12 @@ module KeywordsHelper
   
   def title_results_table
     
-    out = "<table>"
+    out = "<table class='table table-striped'>"
     out << "<tr>"
     out << "<th>Date</th>"
     out << "<th>Count</th>"
     out << "<th>Change</th>"
-    out << "</tr><tr>"
+    out << "</tr>"
     
     results = @keyword.title_results
     

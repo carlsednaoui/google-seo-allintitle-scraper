@@ -9,6 +9,7 @@ group :assets do
 	gem 'sass-rails'
 	gem 'railties'
   gem 'jquery-rails', "~> 4.0.2"
+  gem 'haml'
 end
 
 group :development, :test do

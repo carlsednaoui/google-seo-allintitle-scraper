@@ -3,6 +3,7 @@ class KeywordsController < ApplicationController
   # GET /keywords.json
   def index
     @keywords = Keyword.all
+    @title = 'Keywords Index'
 
     respond_to do |format|
       format.html # index.html.erb
@@ -12,6 +13,8 @@ class KeywordsController < ApplicationController
   
   def excel_output
     @keywords = Keyword.all
+    @title = 'Keywords Excel Output'
+    
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -21,6 +24,7 @@ class KeywordsController < ApplicationController
   # GET /keywords/1.json
   def show
     @keyword = Keyword.find(params[:id])
+    @title = "Showing Keyword: #{@keyword.word}"
 
     respond_to do |format|
       format.html # show.html.erb
@@ -32,7 +36,8 @@ class KeywordsController < ApplicationController
   # GET /keywords/new.json
   def new
     @keyword = Keyword.new
-
+    @title = 'New Keyword'
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @keyword }

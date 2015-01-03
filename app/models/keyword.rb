@@ -95,4 +95,8 @@ class Keyword < ActiveRecord::Base
     title_results.each {|tr| tr.destroy }
   end
   
+  def days_since_last_scrape
+    (DateTime.now.to_date - current_allintitle.created_at.to_date).to_i
+  end
+  
 end
