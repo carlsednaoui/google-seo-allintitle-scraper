@@ -76,8 +76,12 @@ class Keyword < ActiveRecord::Base
     title_results.order(created_at: :desc).first
   end
   
-  def allintitle_list
+  def allintitle_list_with_date
     title_results.order(created_at: :asc).map {|tr| ["Date.UTC(#{tr.created_at.year},#{tr.created_at.month - 1},#{tr.created_at.day})",tr.google_count] }
+  end
+  
+  def allintitle_list
+    title_results.order(created_at: :asc).map {|tr| tr.google_count }
   end
   
   def current_allintitle
@@ -102,6 +106,10 @@ class Keyword < ActiveRecord::Base
   
   def ready_to_scrape?
     title_results.count > 0 && (DateTime.now.to_i - current_allintitle.created_at.to_i) >= 1.day.to_i ? true : false
+  end
+  
+  def slope
+    BigDecimal.new(LinearRegression.new(allintitle_list).slope.to_s)
   end
   
 end
