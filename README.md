@@ -39,8 +39,6 @@ You can view the results in your browser and also can click the excel output met
 
 ## Todo:
 
-* Add charts
-* Move to Bootstrap
 * Add user auth for production use
 * Set up for quick deploy to Heroku
 * Create worker/cron process for automatic scraping
