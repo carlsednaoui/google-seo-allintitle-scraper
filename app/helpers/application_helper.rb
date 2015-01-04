@@ -16,4 +16,8 @@ module ApplicationHelper
     (start_date..end_date).map {|d| d.strftime('%Y-%m-%d') }
   end
   
+  def glyphicon(icon)
+    "<span class='glyphicon glyphicon-#{icon}' aria-hidden='true'></span>".html_safe
+  end
+  
 end

@@ -9,6 +9,10 @@ module KeywordsHelper
     current - previous
   end
   
+  def percent_change(previous,current)
+    number_to_percentage( change(previous,current) == 0 ? 0 : ((BigDecimal.new(current) / BigDecimal.new(previous)) - 1) * 100, precision: 2)
+  end
+  
   def color_for_change(previous, current)
     ch = change(previous, current)
     return 'red ' if ch > 0
@@ -22,6 +26,7 @@ module KeywordsHelper
     out << "<tr>"
     out << "<th>Date</th>"
     out << "<th>Count</th>"
+    out << "<th>% Change</th>"
     out << "<th>Change</th>"
     out << "</tr>"
     
@@ -31,9 +36,10 @@ module KeywordsHelper
     
     results.each do |current|
       out << "<tr>"
-      out << "<td>#{current.id} #{current.created_at.strftime('%Y-%m-%d')}</td>"
+      out << "<td>#{current.created_at.strftime('%Y-%m-%d')}</td>"
       out << "<td>#{current.google_count}</td>"
-      out << (previous.nil? ? "<td>&nbsp;</td>" : "<td class='#{color_for_change(previous.google_count,current.google_count)}'>#{change(previous.google_count,current.google_count)}</td>")
+      out << (previous.nil? ? "<td>0.00%</td>" : "<td class='#{color_for_change(previous.google_count,current.google_count)}'>#{percent_change(previous.google_count,current.google_count)}</td>")
+      out << (previous.nil? ? "<td>0</td>" : "<td class='#{color_for_change(previous.google_count,current.google_count)}'>#{change(previous.google_count,current.google_count)}</td>")
       out << "</tr>"
       previous = current
     end

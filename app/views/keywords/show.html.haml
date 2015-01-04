@@ -23,7 +23,13 @@
       },
       series: [{
         name: "#{@keyword.word.gsub("'","\'")}",
-        data: #{@keyword.allintitle_list.to_s.gsub('"','')}
+        data: #{@keyword.allintitle_list.to_s.gsub('"','')},
+        regression: #{@keyword.title_results.count > 2 ? 'true' : 'false'},
+        regressionSettings: {
+            type: 'linear',
+            color:  '#1111cc',
+            loessSmooth: 0
+        }
       }]
     });
   });
