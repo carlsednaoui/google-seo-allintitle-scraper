@@ -20,4 +20,22 @@ module ApplicationHelper
     "<span class='glyphicon glyphicon-#{icon}' aria-hidden='true'></span>".html_safe
   end
   
+  def up_or_down_glyphicon_for_change(change)
+    return glyphicon('remove') if change == 0
+    return glyphicon('arrow-up') if change > 0
+    return glyphicon('arrow-down') if change < 0
+  end
+  
+  def percent_to_hex(percent, start, stop)
+    colors = [start,stop].map do |c|
+      c.scan(/../).map { |s| s.to_i(16) }
+    end
+
+    colors_int = colors.transpose.map do |x,y|
+      (x + percent * 100 * (y - x)).round
+    end
+
+    "##{colors_int.map { |i| i.to_s(16) }.join("")}"
+  end
+  
 end
