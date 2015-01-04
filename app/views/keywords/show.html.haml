@@ -9,8 +9,6 @@
         x: -20
       },
       xAxis: {
-        //categories: #{list_dates_between_dates(DateTime.parse(@keyword.first_allintitle.created_at.to_s), DateTime.parse(@keyword.current_allintitle.created_at.to_s)).to_s},
-        //categories: #{@keyword.title_results.all.map {|tr| tr.created_at.strftime('%Y-%m-%d')}.to_s},
         dateTimeLabelFormats: { // don't display the dummy year
             day: '%e. %b'
         },
@@ -23,7 +21,7 @@
       },
       series: [{
         name: "#{@keyword.word.gsub("'","\'")}",
-        data: #{@keyword.allintitle_list.to_s.gsub('"','')},
+        data: #{@keyword.allintitle_list_with_date.to_s.gsub('"','')},
         regression: #{@keyword.title_results.count > 2 ? 'true' : 'false'},
         regressionSettings: {
             type: 'linear',

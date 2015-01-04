@@ -5,7 +5,9 @@ module ApplicationHelper
       ''
     when 1..1000
       'green'
-    when 1001..2000
+    when 1001..3000
+      'blue'
+    when 3001..6000
       'orange'
     else
       'red'
