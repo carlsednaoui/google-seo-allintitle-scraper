@@ -10,23 +10,21 @@
       %th Current Count
       %th % Change
       %th Change
-      %th Ready to Scrape?
       %th
     - @keywords.each do |keyword|
       %tr
         %td= link_to keyword.word, keyword
         - if keyword.title_results.count > 0
-          %td{class: color_for_change(change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count))}
-            #{up_or_down_glyphicon_for_change(change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count))}
+          %td{class: color_for_change(keyword.slope)}
+            #{up_or_down_glyphicon_for_change(keyword.slope)}
           %td{class: color_for_allintitle(keyword.previous_allintitle.google_count)}= keyword.previous_allintitle.google_count
           %td{class: color_for_allintitle(keyword.current_allintitle.google_count)}= keyword.current_allintitle.google_count
           %td{style: "color: #{color_for_percent_change(percent_change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count))}"}
             #{number_to_percentage(percent_change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count), precision: 2)}
           %td{class: color_for_change(change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count))}
             #{change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count)}
-          %td{class: keyword.ready_to_scrape? ? 'green' : nil}= keyword.ready_to_scrape? ? glyphicon('ok') : glyphicon('remove')
         - else
-          %td{colspan: 4} (no data)
+          %td{colspan: 5} (no data)
         %td
           = link_to 'Show', keyword, class: 'btn btn-sm btn-default', role: :button
           = link_to 'Scrape', get_allintitle_keyword_path(keyword), class: 'btn btn-sm btn-success', method: :post, role: :button, disabled: !keyword.ready_to_scrape?

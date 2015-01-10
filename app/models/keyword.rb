@@ -112,4 +112,8 @@ class Keyword < ActiveRecord::Base
     BigDecimal.new(LinearRegression.new(allintitle_list).slope.to_s)
   end
   
+  # def word
+  #   '**OBFUSCATED NYANYA**'
+  # end
+  
 end
