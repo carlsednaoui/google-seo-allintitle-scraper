@@ -2,7 +2,7 @@ class KeywordsController < ApplicationController
   # GET /keywords
   # GET /keywords.json
   def index
-    @keywords = Keyword.all
+    @keywords = Keyword.paginate(page: params[:page], per_page: per_page)
     @keywords.where!(favorite: true) if params[:favorite]
     @title = 'Keywords Index'
 
@@ -25,6 +25,7 @@ class KeywordsController < ApplicationController
   # GET /keywords/1.json
   def show
     @keyword = Keyword.find(params[:id])
+    @title_results = @keyword.title_results.paginate(page: params[:page], per_page: per_page)
     @title = "Showing Keyword: #{@keyword.word}"
 
     respond_to do |format|
@@ -120,5 +121,9 @@ class KeywordsController < ApplicationController
   private
     def keyword_params
       params.require(:word).permit(:allintitle, :word)
+    end
+    
+    def per_page
+      25
     end
 end

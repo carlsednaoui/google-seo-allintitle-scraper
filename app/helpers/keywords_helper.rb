@@ -6,8 +6,10 @@ module KeywordsHelper
   end
   
   def title_results_table
+        
+    out = ""
     
-    out = "<table class='table table-striped'>"
+    out << "<table class='table table-striped'>"
     out << "<tr>"
     out << "<th>Date</th>"
     out << "<th>Count</th>"
@@ -15,11 +17,10 @@ module KeywordsHelper
     out << "<th>Change</th>"
     out << "</tr>"
     
-    results = @keyword.title_results
     
     previous = nil
     
-    results.each do |current|
+    @title_results.each do |current|
       out << "<tr>"
       out << "<td>#{current.created_at.strftime('%Y-%m-%d')}</td>"
       out << "<td class='#{color_for_allintitle(current.google_count)}'>#{current.google_count}</td>"

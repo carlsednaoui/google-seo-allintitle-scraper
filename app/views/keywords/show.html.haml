@@ -37,6 +37,8 @@
     });
   });
 
+= will_paginate(@title_results, renderer: BootstrapPagination::Rails), renderer: BootstrapPagination::Rails
 = title_results_table
+= will_paginate(@title_results, renderer: BootstrapPagination::Rails), renderer: BootstrapPagination::Rails
 
 %p= link_to 'Back', keywords_path, class: 'btn btn-default', role: :button

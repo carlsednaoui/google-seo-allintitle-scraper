@@ -10,6 +10,8 @@ You simply add keywords (individually or in bulk) and then run the scraper rake 
 
 The tool keeps track of the changes as you go, and provides trendline data for keywords with over two scrapes. This can help identify terms that are becoming opportunities or are rapidly increasing in competitiveness. Ideally, you should be able to create and track a long list of terms over time to watch and anticipate competition around money terms.
 
+At the current state of build, you should be able to run several thousand keywords through this without issue. Just need pagination/table-sort to make it easy to view!
+
 ## For users of the previous versions:
 
 2014-12-29: Run '$ rake db:migrate' and then '$ rake db_update:update_keywords' to take existing keywords and create associate TitleResult objects in the DB. _Please back up your database before running this if you have info you don't want to lose!_
@@ -53,6 +55,7 @@ You can view the results in your browser and also can click the excel output met
 
 * Google typically limits you to 100 queries per day per IP address. Go patronize your local coffee shop or use a VPN!
 * You cannot scrape more than once every 24 hours. This is a limit set in the model which you can individually override (keyword.getallintitle(true) to override). This is in place so that your history doesn't get all hosed as you go.
+* Apparently sometimes the allintitle count is wildly out of whack for some terms. This mucks with trendlines, so I'm investigating an algorithm that will allow me to discard results that are statistical outliers (or at least severely discount them)
 
 ## Todo:
 

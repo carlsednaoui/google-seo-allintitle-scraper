@@ -30,7 +30,7 @@
       %td
         High Competition:
         %span.red= @keywords.where(competition: Keyword.competition_levels[:high]).count
-  
+  = will_paginate @keywords, renderer: BootstrapPagination::Rails
   %table.table.table-striped
     %tr
       %th
@@ -68,4 +68,5 @@
               %li= link_to 'Allintitle History', reset_allintitle_keyword_path(keyword), method: :post, data: {confirm: 'Are you sure? This will annihilate the Allintitle history for this Keyword!'}
               %li= link_to 'Keyword', keyword, method: :delete, data: {confirm: 'Are you sure you want to destroy this? It will remove the Keyword and the entire Allintitle history associated with it!'}
 
+  = will_paginate @keywords, renderer: BootstrapPagination::Rails
 %p= link_to 'New Keyword', new_keyword_path, class: 'btn btn-success', role: :button
