@@ -34,12 +34,13 @@
           e.stopPropagation(); 
           var that = $(this).children(":first");
           $.post($(this).attr('data-favorite-link') + '.json?index=' + $(this).attr('data-keyword-index'), function(data){
-            
-            if(data.favorite == true) {
-              console.log('CHANGE TO FALSE')
-              that.toggleClass("glyphicon-#{star_class_for_favorite(false)}").toggleClass("glyphicon-#{star_class_for_favorite(true)}");
+            if(data.favorite == false) {
+              if(getUrlParameter('favorite') == "true") {
+                that.parent().parent().parent().remove();
+              } else {
+                that.toggleClass("glyphicon-#{star_class_for_favorite(false)}").toggleClass("glyphicon-#{star_class_for_favorite(true)}");
+              }
             } else {
-              console.log('CHANGE TO TRUE')
               that.toggleClass("glyphicon-#{star_class_for_favorite(false)}").toggleClass("glyphicon-#{star_class_for_favorite(true)}");
             }
           })
