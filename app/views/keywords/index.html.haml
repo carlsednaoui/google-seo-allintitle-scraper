@@ -35,6 +35,7 @@
       %th
       %th Word
       %th Trend
+      %th Average Count
       %th Previous Count
       %th Current Count
       %th % Change
@@ -42,12 +43,12 @@
       %th
     - @keywords.each do |keyword|
       %tr
-        /%td{style: 'font-size:1.2em'}= link_to(star_for_favorite(keyword.favorite), switch_favorite_keyword_path(keyword, index: true), method: :post, id: "favorite_#{keyword.id}", class: 'favorite_link')
         %td{style: 'font-size:1.2em'}= link_to(star_for_favorite(keyword.favorite), 'javascript:void(0)', id: "favorite_#{keyword.id}", class: 'favorite_link', :'data-favorite-link' => switch_favorite_keyword_path(keyword), :'data-keyword-index' => true)
         %td= link_to keyword.word, keyword
         - if keyword.title_results.count > 0
           %td{class: color_for_change(keyword.r_value)}
             #{up_or_down_glyphicon_for_change(keyword.r_value)}
+          %td{class: color_for_allintitle(keyword.title_results.average(:google_count))}= number_with_delimiter(number_with_precision(keyword.title_results.average(:google_count), precision: 0), delimiter: ',')
           %td{class: color_for_allintitle(keyword.previous_allintitle.google_count)}= keyword.previous_allintitle.google_count
           %td{class: color_for_allintitle(keyword.current_allintitle.google_count)}= keyword.current_allintitle.google_count
           %td{style: "color: #{color_for_percent_change(percent_change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count))}"}
