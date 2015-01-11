@@ -4,7 +4,15 @@
 
 
 - else
-
+  %h4 Report
+  %table.table.table-striped
+    %tr
+      %td Keywords:
+      %td= number_with_delimiter(Keyword.all.count, :delimiter => ',')
+    %tr
+      %td Favorites:
+      %td= number_with_delimiter(Keyword.where(favorite: true).count, :delimiter => ',')
+  
   %h5
     = params[:favorite] ? link_to('All Keywords',keywords_path) : 'All Keywords'
     |
