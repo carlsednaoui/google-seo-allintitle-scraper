@@ -3,6 +3,7 @@ class KeywordsController < ApplicationController
   # GET /keywords.json
   def index
     @keywords = Keyword.all
+    @keywords.where!(favorite: true) if params[:favorite]
     @title = 'Keywords Index'
 
     respond_to do |format|

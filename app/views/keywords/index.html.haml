@@ -1,7 +1,14 @@
 - if @keywords.nil?
   %h4 Hey there
   %p Welcome! Check out #{link_to 'the instructions', instructions_path} to get started!
+
+
 - else
+  %h5
+    = params[:favorite] ? link_to('All Keywords',keywords_path) : 'All Keywords'
+    |
+    = params[:favorite] ? 'Favorites' : link_to('Favorites', keywords_path(favorite: true))
+  %br/
   %table.table.table-striped
     %tr
       %th
