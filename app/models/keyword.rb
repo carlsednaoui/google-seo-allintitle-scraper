@@ -7,6 +7,13 @@ class Keyword < ActiveRecord::Base
   
   @@base_url = "http://www.google.com/search?q=allintitle:"
   @@quotes = "%22"
+  @@competition_levels = {
+    none: 0,
+    low: 1,
+    mild: 2,
+    medium: 3,
+    high: 4
+  }
   
   def self.base_url
     @@base_url
@@ -14,6 +21,10 @@ class Keyword < ActiveRecord::Base
   
   def self.quotes
     @@quotes
+  end
+  
+  def self.competition_levels
+    @@competition_levels
   end
   
   def self.add_keywords(keywords)
@@ -117,8 +128,23 @@ class Keyword < ActiveRecord::Base
     BigDecimal.new(LinearRegression.new(allintitle_list).slope.to_s)
   end
   
+  def competition_level
+    case title_results.average(:google_count)
+    when 0
+      @@competition_levels[:none]
+    when 1..1000
+      @@competition_levels[:low]
+    when 1001..3000
+      @@competition_levels[:mild]
+    when 3001..6000
+      @@competition_levels[:moderate]
+    else
+      @@competition_levels[:high]
+    end
+  end
+  
   # def word
-  #   '**OBFUSCATED NYANYA**'
+  #   '**OBFUSCATED NYANYANYA**'
   # end
   
 end

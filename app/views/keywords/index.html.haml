@@ -4,20 +4,33 @@
 
 
 - else
+  %h5
+    = params[:favorite] ? link_to('All Keywords',keywords_path) : '<u>All Keywords</u>'.html_safe
+    |
+    = params[:favorite] ? '<u>Favorites</u>'.html_safe : link_to('Favorites', keywords_path(favorite: true))
+  %br/
   %h4 Report
   %table.table.table-striped
     %tr
-      %td Keywords:
-      %td= number_with_delimiter(Keyword.all.count, :delimiter => ',')
-    %tr
-      %td Favorites:
-      %td= number_with_delimiter(Keyword.where(favorite: true).count, :delimiter => ',')
+      %td
+        Keywords:
+        = number_with_delimiter(Keyword.all.count, :delimiter => ',')
+      %td
+        Favorites:
+        = number_with_delimiter(Keyword.where(favorite: true).count, :delimiter => ',')
+      %td
+        Low Competition:
+        %span.green= @keywords.where(competition: Keyword.competition_levels[:low]).count
+      %td
+        Mild Competition:
+        %span.blue= @keywords.where(competition: Keyword.competition_levels[:mild]).count
+      %td
+        Medium Competition:
+        %span.orange= @keywords.where(competition: Keyword.competition_levels[:medium]).count
+      %td
+        High Competition:
+        %span.red= @keywords.where(competition: Keyword.competition_levels[:high]).count
   
-  %h5
-    = params[:favorite] ? link_to('All Keywords',keywords_path) : 'All Keywords'
-    |
-    = params[:favorite] ? 'Favorites' : link_to('Favorites', keywords_path(favorite: true))
-  %br/
   %table.table.table-striped
     %tr
       %th
@@ -34,8 +47,8 @@
         %td{style: 'font-size:1.2em'}= link_to(star_for_favorite(keyword.favorite), 'javascript:void(0)', id: "favorite_#{keyword.id}", class: 'favorite_link', :'data-favorite-link' => switch_favorite_keyword_path(keyword), :'data-keyword-index' => true)
         %td= link_to keyword.word, keyword
         - if keyword.title_results.count > 0
-          %td{class: color_for_change(keyword.slope)}
-            #{up_or_down_glyphicon_for_change(keyword.slope)}
+          %td{class: color_for_change(keyword.r_value)}
+            #{up_or_down_glyphicon_for_change(keyword.r_value)}
           %td{class: color_for_allintitle(keyword.previous_allintitle.google_count)}= keyword.previous_allintitle.google_count
           %td{class: color_for_allintitle(keyword.current_allintitle.google_count)}= keyword.current_allintitle.google_count
           %td{style: "color: #{color_for_percent_change(percent_change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count))}"}
