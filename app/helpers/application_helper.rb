@@ -28,6 +28,14 @@ module ApplicationHelper
     return glyphicon('arrow-down') if change < 0
   end
   
+  def star_for_favorite(favorite)
+    glyphicon(star_class_for_favorite(favorite))
+  end
+  
+  def star_class_for_favorite(favorite)
+    favorite ? 'star' : 'star-empty'
+  end
+  
   def percent_to_hex(percent, start, stop)
     colors = [start,stop].map do |c|
       c.scan(/../).map { |s| s.to_i(16) }

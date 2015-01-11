@@ -4,6 +4,7 @@
 - else
   %table.table.table-striped
     %tr
+      %th
       %th Word
       %th Trend
       %th Previous Count
@@ -13,6 +14,8 @@
       %th
     - @keywords.each do |keyword|
       %tr
+        /%td{style: 'font-size:1.2em'}= link_to(star_for_favorite(keyword.favorite), switch_favorite_keyword_path(keyword, index: true), method: :post, id: "favorite_#{keyword.id}", class: 'favorite_link')
+        %td{style: 'font-size:1.2em'}= link_to(star_for_favorite(keyword.favorite), 'javascript:void(0)', id: "favorite_#{keyword.id}", class: 'favorite_link', :'data-favorite-link' => switch_favorite_keyword_path(keyword), :'data-keyword-index' => true)
         %td= link_to keyword.word, keyword
         - if keyword.title_results.count > 0
           %td{class: color_for_change(keyword.slope)}

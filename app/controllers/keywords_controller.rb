@@ -88,6 +88,20 @@ class KeywordsController < ApplicationController
     end
   end
   
+  def switch_favorite
+    @keyword = Keyword.find(params[:id])
+    
+    respond_to do |format|
+      if @keyword.switch_favorite
+        format.html { redirect_to (params[:index] ? keywords_path : @keyword), notice: 'Favorite Updated!'}
+        format.json { render json: {favorite: @keyword.favorite} } # make sure it is returning the correct value!
+      else
+        format.html { render action: "show" }
+        format.json { render json: @keyword.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   def get_allintitle
     @keyword = Keyword.find(params[:id])
     

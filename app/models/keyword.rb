@@ -1,6 +1,7 @@
 class Keyword < ActiveRecord::Base
   
   validates :word, uniqueness: true
+  # validates :favorite, presence: true
   
   has_many :title_results, dependent: :destroy
   
@@ -33,6 +34,10 @@ class Keyword < ActiveRecord::Base
         sleep sleep_time
       end
     end
+  end
+  
+  def switch_favorite
+    update_attributes({favorite: !favorite})
   end
   
   def get_allintitle(override=false)
