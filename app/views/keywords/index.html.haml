@@ -4,10 +4,9 @@
 
 
 - else
-  %h5
-    = params[:favorite] ? link_to('All Keywords',keywords_path) : '<u>All Keywords</u>'.html_safe
-    |
-    = params[:favorite] ? '<u>Favorites</u>'.html_safe : link_to('Favorites', keywords_path(favorite: true))
+  .btn-group{role: :group}
+    = link_to('All Keywords',(!params[:favorite] ? '#' : keywords_path), class: "btn btn-default #{'active' if !params[:favorite]}")
+    = link_to('Favorites', (params[:favorite] ? '#' : keywords_path(favorite: true)), class: "btn btn-default #{'active' if params[:favorite]}")
   %br/
   %h4 Report
   %table.table.table-striped

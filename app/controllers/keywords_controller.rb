@@ -2,7 +2,7 @@ class KeywordsController < ApplicationController
   # GET /keywords
   # GET /keywords.json
   def index
-    @keywords = Keyword.paginate(page: params[:page], per_page: per_page)
+    @keywords = Keyword.all.paginate(page: params[:page], per_page: per_page)
     @keywords.where!(favorite: true) if params[:favorite]
     @title = 'Keywords Index'
 

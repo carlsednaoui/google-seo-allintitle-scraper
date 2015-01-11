@@ -129,7 +129,7 @@ class Keyword < ActiveRecord::Base
   end
   
   def competition_level
-    case title_results.average(:google_count)
+    case title_results.average(:google_count).to_i
     when 0
       @@competition_levels[:none]
     when 1..1000
@@ -137,7 +137,7 @@ class Keyword < ActiveRecord::Base
     when 1001..3000
       @@competition_levels[:mild]
     when 3001..6000
-      @@competition_levels[:moderate]
+      @@competition_levels[:medium]
     else
       @@competition_levels[:high]
     end
