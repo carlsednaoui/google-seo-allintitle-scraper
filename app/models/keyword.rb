@@ -58,22 +58,29 @@ class Keyword < ActiveRecord::Base
       return false
     end unless override
     
-    require 'nokogiri'
-    require 'open-uri'
-    # Replace spaces in word with proper URL encoding format
-    word = self.word.gsub(" ", "%20")
+    begin
+      require 'nokogiri'
+      require 'open-uri'
+      # Replace spaces in word with proper URL encoding format
+      word = self.word.gsub(" ", "%20")
 
-    # Build the url to use for Nokogiri
-    url = @@base_url + @@quotes + word + @@quotes
-    doc = Nokogiri::HTML(open("#{url}"))
+      # Build the url to use for Nokogiri
+      url = @@base_url + @@quotes + word + @@quotes
+      doc = Nokogiri::HTML(open("#{url}"))
 
-    # Strip the google results
-    result = doc.css('#resultStats').text
-    result = result.gsub("About ","")
-    result = result.gsub(" results", "")
-    result = result.gsub(",", "")
+      # Strip the google results
+      result = doc.css('#resultStats').text
+      result = result.gsub("About ","")
+      result = result.gsub(" results", "")
+      result = result.gsub(",", "")
 
-    puts "all in title: " + result.to_s
+      puts "all in title: " + result.to_s
+    rescue Exception => e
+      puts e.message
+      puts e.backtrace
+      puts 'Nokogiri, we have a problem...'
+      return false
+    end
     
     # Replaced with a new model for time-based analysis
     begin
@@ -82,7 +89,7 @@ class Keyword < ActiveRecord::Base
     rescue Exception => e
       puts e.message
       puts e.backtrace
-      puts 'Mountain View, we have a problem...'
+      puts 'ActiveRecord, we have a problem...'
       return false
     end
     
