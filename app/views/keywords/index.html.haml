@@ -1,32 +1,62 @@
 - if @keywords.nil?
   %h4 Hey there
   %p Welcome! Check out #{link_to 'the instructions', instructions_path} to get started!
+
+
 - else
+  .btn-group{role: :group}
+    = link_to('All Keywords',(!params[:favorite] ? '#' : keywords_path), class: "btn btn-default #{'active' if !params[:favorite]}")
+    = link_to('Favorites', (params[:favorite] ? '#' : keywords_path(favorite: true)), class: "btn btn-default #{'active' if params[:favorite]}")
+  %br/
+  %h4 Report
   %table.table.table-striped
     %tr
+      %td
+        Keywords:
+        = number_with_delimiter(Keyword.all.count, :delimiter => ',')
+      %td
+        Favorites:
+        = number_with_delimiter(Keyword.where(favorite: true).count, :delimiter => ',')
+      %td
+        Low Competition:
+        %span.green= @keywords.where(competition: Keyword.competition_levels[:low]).count
+      %td
+        Mild Competition:
+        %span.blue= @keywords.where(competition: Keyword.competition_levels[:mild]).count
+      %td
+        Medium Competition:
+        %span.orange= @keywords.where(competition: Keyword.competition_levels[:medium]).count
+      %td
+        High Competition:
+        %span.red= @keywords.where(competition: Keyword.competition_levels[:high]).count
+  = will_paginate @keywords, renderer: BootstrapPagination::Rails
+  %table.table.table-striped
+    %tr
+      %th
       %th Word
       %th Trend
+      %th Average Count
       %th Previous Count
       %th Current Count
       %th % Change
       %th Change
-      %th Ready to Scrape?
       %th
     - @keywords.each do |keyword|
       %tr
+        %td{style: 'font-size:1.2em'}= link_to(star_for_favorite(keyword.favorite), 'javascript:void(0)', id: "favorite_#{keyword.id}", class: 'favorite_link', :'data-favorite-link' => switch_favorite_keyword_path(keyword), :'data-keyword-index' => true)
         %td= link_to keyword.word, keyword
         - if keyword.title_results.count > 0
-          %td{class: color_for_change(change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count))}
-            #{up_or_down_glyphicon_for_change(change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count))}
+          %td{class: color_for_change(keyword.r_value)}
+            #{up_or_down_glyphicon_for_change(keyword.r_value)}
+          %td{class: color_for_allintitle(keyword.title_results.average(:google_count))}= number_with_delimiter(number_with_precision(keyword.title_results.average(:google_count), precision: 0), delimiter: ',')
           %td{class: color_for_allintitle(keyword.previous_allintitle.google_count)}= keyword.previous_allintitle.google_count
           %td{class: color_for_allintitle(keyword.current_allintitle.google_count)}= keyword.current_allintitle.google_count
           %td{style: "color: #{color_for_percent_change(percent_change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count))}"}
             #{number_to_percentage(percent_change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count), precision: 2)}
           %td{class: color_for_change(change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count))}
             #{change(keyword.previous_allintitle.google_count,keyword.current_allintitle.google_count)}
-          %td{class: keyword.ready_to_scrape? ? 'green' : nil}= keyword.ready_to_scrape? ? glyphicon('ok') : glyphicon('remove')
         - else
-          %td{colspan: 4} (no data)
+          %td{colspan: 5} (no data)
         %td
           = link_to 'Show', keyword, class: 'btn btn-sm btn-default', role: :button
           = link_to 'Scrape', get_allintitle_keyword_path(keyword), class: 'btn btn-sm btn-success', method: :post, role: :button, disabled: !keyword.ready_to_scrape?
@@ -38,4 +68,5 @@
               %li= link_to 'Allintitle History', reset_allintitle_keyword_path(keyword), method: :post, data: {confirm: 'Are you sure? This will annihilate the Allintitle history for this Keyword!'}
               %li= link_to 'Keyword', keyword, method: :delete, data: {confirm: 'Are you sure you want to destroy this? It will remove the Keyword and the entire Allintitle history associated with it!'}
 
+  = will_paginate @keywords, renderer: BootstrapPagination::Rails
 %p= link_to 'New Keyword', new_keyword_path, class: 'btn btn-success', role: :button

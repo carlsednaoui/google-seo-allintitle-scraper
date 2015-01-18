@@ -28,3 +28,22 @@
       .container
         %p.text-muted
           Created by #{link_to 'carlsednaoui', 'https://github.com/carlsednaoui'} and updated heavily by #{link_to 'thekeith','https://github.com/thekeith'} | #{link_to 'View source on Github', 'https://github.com/carlsednaoui/google-seo-allintitle-scraper'}
+    :javascript
+      $(document).ready(function(){
+        $('.favorite_link').click(function(e){
+          e.stopPropagation(); 
+          var that = $(this).children(":first");
+          $.post($(this).attr('data-favorite-link') + '.json?index=' + $(this).attr('data-keyword-index'), function(data){
+            if(data.favorite == false) {
+              if(getUrlParameter('favorite') == "true") {
+                that.parent().parent().parent().remove();
+              } else {
+                that.toggleClass("glyphicon-#{star_class_for_favorite(false)}").toggleClass("glyphicon-#{star_class_for_favorite(true)}");
+              }
+            } else {
+              that.toggleClass("glyphicon-#{star_class_for_favorite(false)}").toggleClass("glyphicon-#{star_class_for_favorite(true)}");
+            }
+          })
+          
+        });
+      });

@@ -1,5 +1,7 @@
 
-%h5{class: color_for_change(@keyword.slope)} Linear Regression Slope: #{@keyword.slope}
+%h5
+  %span{style: 'font-size: 1.2em'}= link_to(star_for_favorite(@keyword.favorite), 'javascript:void(0)', id: "favorite_#{@keyword.id}", class: 'favorite_link', :'data-favorite-link' => switch_favorite_keyword_path(@keyword), :'data-keyword-index' => true)
+  %span{class: color_for_change(@keyword.r_value)} Linear Regression Slope: #{number_with_precision(@keyword.r_value, precision: 2)}
 
 
 #allintitle-chart.panel
@@ -35,6 +37,8 @@
     });
   });
 
+= will_paginate(@title_results, renderer: BootstrapPagination::Rails)
 = title_results_table
+= will_paginate(@title_results, renderer: BootstrapPagination::Rails)
 
 %p= link_to 'Back', keywords_path, class: 'btn btn-default', role: :button

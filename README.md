@@ -10,11 +10,17 @@ You simply add keywords (individually or in bulk) and then run the scraper rake 
 
 The tool keeps track of the changes as you go, and provides trendline data for keywords with over two scrapes. This can help identify terms that are becoming opportunities or are rapidly increasing in competitiveness. Ideally, you should be able to create and track a long list of terms over time to watch and anticipate competition around money terms.
 
+At the current state of build, you should be able to run several thousand keywords through this without issue. Just need pagination/table-sort to make it easy to view!
+
 ## For users of the previous versions:
 
-Run '$ rake db:migrate' and then '$ rake scraper:update_keywords' to take existing keywords and create associate TitleResult objects in the DB. _Please back up your database before running this if you have info you don't want to lose!_
+2014-12-29: Run '$ rake db:migrate' and then '$ rake db_update:update_keywords' to take existing keywords and create associate TitleResult objects in the DB. _Please back up your database before running this if you have info you don't want to lose!_
+
+2015-01-11: Run '$ rake db:migrte' and then '$ rake db_update:add_counters' do add the counters to your keyword records.
 
 ## Updates
+
+2014-12-29
 
 * Added the TitleResult model to encapsulate result counts.
 * Removed extraneous routes/methods from routes.rb - you can no longer edit/update keywords, only create and delete
@@ -24,6 +30,14 @@ Run '$ rake db:migrate' and then '$ rake scraper:update_keywords' to take existi
 * Updated to Bootstrap (via BootstrapCDN)
 * Added charts with Highcharts (via highcharts-rails gem) and a regression model
 * Overhauled the UX a whole bunch to color code and provide a better grasp of what is trending
+
+2014-01-11
+
+* Added favorites for Keywords using a quick ajax method
+* Added ability to filter favorites & non in the index page
+* Added basic counter stats for competition levels
+* Added an r_value column for Keywords
+* Various bug fixes
 
 ## Getting your scraper ready:
 
@@ -41,6 +55,7 @@ You can view the results in your browser and also can click the excel output met
 
 * Google typically limits you to 100 queries per day per IP address. Go patronize your local coffee shop or use a VPN!
 * You cannot scrape more than once every 24 hours. This is a limit set in the model which you can individually override (keyword.getallintitle(true) to override). This is in place so that your history doesn't get all hosed as you go.
+* Apparently sometimes the allintitle count is wildly out of whack for some terms. This mucks with trendlines, so I'm investigating an algorithm that will allow me to discard results that are statistical outliers (or at least severely discount them)
 
 ## Todo:
 

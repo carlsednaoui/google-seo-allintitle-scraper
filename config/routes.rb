@@ -3,6 +3,7 @@ Noko::Application.routes.draw do
     member do
       post :reset_allintitle
       post :get_allintitle
+      post :switch_favorite
     end
     collection do
       get :excel_output

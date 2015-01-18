@@ -18,6 +18,26 @@ module ApplicationHelper
     (start_date..end_date).map {|d| d.strftime('%Y-%m-%d') }
   end
   
+  def change(previous,current)
+    current - previous
+  end
+  
+  def percent_change(previous,current)
+    change(previous,current) == 0 ? 0 : ((BigDecimal.new(current) / BigDecimal.new(previous)) - 1) * 100
+  end
+  
+  def color_for_change(change)
+    return 'red ' if change > 0
+    return 'green' if change < 0
+    return nil if change == 0
+  end
+  
+  def color_for_percent_change(percent_change)
+    return '#000' if percent_change == 0
+    return "rgb(#{(100 * (percent_change / 100)).to_i + 155},0,0); /* greater than 0 /*" if percent_change > 0
+    return "rgb(0,#{(100 * ((percent_change - percent_change - percent_change) / 100)).to_i + 155},0); /* less than 0 /*" if percent_change < 0
+  end
+  
   def glyphicon(icon)
     "<span class='glyphicon glyphicon-#{icon}' aria-hidden='true'></span>".html_safe
   end
@@ -26,6 +46,14 @@ module ApplicationHelper
     return glyphicon('remove') if change == 0
     return glyphicon('arrow-up') if change > 0
     return glyphicon('arrow-down') if change < 0
+  end
+  
+  def star_for_favorite(favorite)
+    glyphicon(star_class_for_favorite(favorite))
+  end
+  
+  def star_class_for_favorite(favorite)
+    favorite ? 'star' : 'star-empty'
   end
   
   def percent_to_hex(percent, start, stop)

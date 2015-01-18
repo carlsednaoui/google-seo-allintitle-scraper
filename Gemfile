@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 gem 'nokogiri'
 gem 'heroku'
+gem 'will_paginate', '~> 3.0.4'
+gem 'will_paginate-bootstrap', '~> 1.0.1'
 
 group :assets do
 	gem 'uglifier', '>= 1.0.3'

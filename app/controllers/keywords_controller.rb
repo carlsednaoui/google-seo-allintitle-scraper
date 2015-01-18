@@ -2,7 +2,8 @@ class KeywordsController < ApplicationController
   # GET /keywords
   # GET /keywords.json
   def index
-    @keywords = Keyword.all
+    @keywords = Keyword.all.paginate(page: params[:page], per_page: per_page)
+    @keywords.where!(favorite: true) if params[:favorite]
     @title = 'Keywords Index'
 
     respond_to do |format|
@@ -24,6 +25,7 @@ class KeywordsController < ApplicationController
   # GET /keywords/1.json
   def show
     @keyword = Keyword.find(params[:id])
+    @title_results = @keyword.title_results.paginate(page: params[:page], per_page: per_page)
     @title = "Showing Keyword: #{@keyword.word}"
 
     respond_to do |format|
@@ -88,6 +90,20 @@ class KeywordsController < ApplicationController
     end
   end
   
+  def switch_favorite
+    @keyword = Keyword.find(params[:id])
+    
+    respond_to do |format|
+      if @keyword.switch_favorite
+        format.html { redirect_to (params[:index] ? keywords_path : @keyword), notice: 'Favorite Updated!'}
+        format.json { render json: {favorite: @keyword.favorite} } # make sure it is returning the correct value!
+      else
+        format.html { render action: "show" }
+        format.json { render json: @keyword.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   def get_allintitle
     @keyword = Keyword.find(params[:id])
     
@@ -105,5 +121,9 @@ class KeywordsController < ApplicationController
   private
     def keyword_params
       params.require(:word).permit(:allintitle, :word)
+    end
+    
+    def per_page
+      25
     end
 end
